@@ -1,0 +1,8 @@
+.cproject
+.project
+build/
+BootLoader/BootLoader.bin
+IA32Mode/tmp/
+IA32Mode/IA32Mode.bin
+ProtectedMode/tmp
+ProtectedMode/ProtectedMode.bin

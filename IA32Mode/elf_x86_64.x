@@ -10,7 +10,7 @@ SECTIONS
   PROVIDE (__executable_start = 0x400000); . = 0x400000 + SIZEOF_HEADERS;
 /*********************************************************************************/
 /*  섹션 재배치로 인해 앞으로 이동된 부분 */
-  .text 0x400000         :
+  .text 0x600000         :
   {
     *(.text .stub .text.* .gnu.linkonce.t.*)
     /* .gnu.warning sections are handled specially by elf32.em.  */

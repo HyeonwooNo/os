@@ -4,6 +4,7 @@
 void InitializePageTable(void) {
    InitializePML4Table();
    InitializePageDirectoryPointerTable();
+   InitilizePageDirectoryTable();
    InitilizePageTable();
 }
 
@@ -21,7 +22,7 @@ void InitializePML4Table(void) {
 void InitializePageDirectoryPointerTable(void) { //단위 : gb
 	PdpEntry * pdpEntry = (PdpEntry *)PDPTABLE_BASE_ADDRESS;
 	for(int i=0; i<MAX_MEMORY_SIZE; i++) {
-		int pageTableAddress = PAGETABLE_BASE_ADDRESS + (i*PAGE_TABLE_SIZE);
+		int pageTableAddress = PDTABLE_BASE_ADDRESS + (i*PAGE_TABLE_SIZE);
 		pdpEntry[i].lower4Byte = PAGE_LOWER4B_FLAGS_P | PAGE_LOWER4B_FLAGS_RW \
 							| pageTableAddress;
 		pdpEntry[i].upper4Byte = (pageTableAddress >> 28) & 0xFF;
@@ -32,12 +33,32 @@ void InitializePageDirectoryPointerTable(void) { //단위 : gb
 	}
 }
 
+void InitilizePageDirectoryTable(void) {
+	PdEntry * pdEntry = (PdEntry *)PDTABLE_BASE_ADDRESS;
+	for(int i=0; i<MAX_MEMORY_SIZE*TABLE_COUNT; i++) {
+		int pageTableAddress = PTABLE_BASE_ADDRESS + (i*PAGE_TABLE_SIZE);
+		pdEntry[i].lower4Byte = PAGE_LOWER4B_FLAGS_P | PAGE_LOWER4B_FLAGS_RW \
+				| pageTableAddress;
+		pdEntry[i].upper4Byte = (pageTableAddress >> 28) & 0xFF;
+	}
+}
+
 void InitilizePageTable(void) {
-	PdEntry * pdEntry = (PdEntry *)PAGETABLE_BASE_ADDRESS;
+	PtEntry * ptEntry = (PtEntry *)PTABLE_BASE_ADDRESS;
+	for(int i=0; i<MAX_MEMORY_SIZE*TABLE_COUNT*512; i++) {
+		int physicalAddress = i*0x1000;
+		ptEntry[i].lower4Byte = PAGE_LOWER4B_FLAGS_P | PAGE_LOWER4B_FLAGS_RW \
+				| physicalAddress;
+		ptEntry[i].upper4Byte = (physicalAddress >> 28) & 0xFF;
+	}
+}
+
+/*void InitilizePageDirectoryTable(void) {
+	PdEntry * pdEntry = (PdEntry *)PDTABLE_BASE_ADDRESS;
 	for(int i=0; i < TABLE_COUNT*MAX_MEMORY_SIZE; i++) {
 		int physicalAddress = i*0x200000;
 		pdEntry[i].lower4Byte = PAGE_LOWER4B_FLAGS_P | PAGE_LOWER4B_FLAGS_RW \
 				| (PDIRECTORY_LOWER4B_FLAGS_PS | physicalAddress);
 		pdEntry[i].upper4Byte = (physicalAddress >> 32) & 0xFF;
 	}
-}
+}*/

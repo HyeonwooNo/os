@@ -21,7 +21,7 @@ SwitchIA32Mode:
 	xor eax, 0x60000000
 	mov cr0, eax
 
-	jmp 0x10:0x400000
+	jmp 0x10:0x600000
 
 
 

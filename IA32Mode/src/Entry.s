@@ -11,7 +11,7 @@ Entry:
 	mov gs, ax
 
 	mov ss, ax
-	mov rsp, 0x8FFFFE
-	mov rbp, 0x8FFFFE
+	mov rsp, 0xAFFFFE
+	mov rbp, 0xAFFFFE
 
 	call Main

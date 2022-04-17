@@ -45,11 +45,17 @@ void InitilizePageDirectoryTable(void) {
 
 void InitilizePageTable(void) {
 	PtEntry * ptEntry = (PtEntry *)PTABLE_BASE_ADDRESS;
-	for(int i=0; i<MAX_MEMORY_SIZE*TABLE_COUNT*512; i++) {
+	for(int i=0; i<MAX_CODE_SIZE*TABLE_COUNT*512; i++) {
 		int physicalAddress = i*0x1000;
 		ptEntry[i].lower4Byte = PAGE_LOWER4B_FLAGS_P | PAGE_LOWER4B_FLAGS_RW \
 				| physicalAddress;
-		ptEntry[i].upper4Byte = (physicalAddress >> 28) & 0xFF;
+		ptEntry[i].upper4Byte = ((physicalAddress >> 28) & 0xFF);
+	}
+	for(int i=MAX_CODE_SIZE*TABLE_COUNT*512; i<MAX_MEMORY_SIZE*TABLE_COUNT*512; i++) {
+		int physicalAddress = i*0x1000;
+		ptEntry[i].lower4Byte = PAGE_LOWER4B_FLAGS_P | PAGE_LOWER4B_FLAGS_RW \
+				| physicalAddress;
+		ptEntry[i].upper4Byte = ((physicalAddress >> 28) & 0xFF) | PAGE_UPPER4B_FLAGS_EXB;
 	}
 }
 

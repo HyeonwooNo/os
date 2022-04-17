@@ -2,6 +2,6 @@
 #include "Print.h"
 
 void testHandler(void) {
-	puts("Test handler execute");
+	puts("Divide by 0 occur!");
 	while(1);
 }

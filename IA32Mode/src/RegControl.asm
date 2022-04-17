@@ -14,3 +14,12 @@ loadTR:
 loadIDTR:
 	lidt [rdi]
 	ret
+
+enableInterrupt:
+	sti
+	ret
+
+disableInterrupt:
+	cli
+	ret
+

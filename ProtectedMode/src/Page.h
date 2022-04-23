@@ -8,6 +8,7 @@
 #define PAGE_TABLE_SIZE 0x1000
 #define MAX_MEMORY_SIZE 4 // 단위 : gb
 #define MAX_CODE_SIZE 2 // 단위 : gb
+#define KERNEL_SIZE 32 // 단위 : kb
 
 //address
 #define PML4_BASE_ADDRESS 0x100000

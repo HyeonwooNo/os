@@ -34,6 +34,10 @@ void printInt(int num, int radix) {
 	char charNum[32] = {0};
 	int convertConstant = '1'-1;
 	int count = 0;
+	if(num==0) {
+		viewCharacter('0');
+		return;
+	}
 	for(int i=0; i<32; i++)
 		charNum[i]=-1;
 	while(num>0) {

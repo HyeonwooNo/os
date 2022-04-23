@@ -1,7 +1,7 @@
 [bits 64]
 
 SEGMENT .text
-global loadGDTR, loadTR, loadIDTR
+global loadGDTR, loadTR, loadIDTR, enableInterrupt, disableInterrupt
 
 loadGDTR:
 	lgdt [rdi]

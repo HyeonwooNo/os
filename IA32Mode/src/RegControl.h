@@ -5,5 +5,7 @@
 void loadGDTR(QWORD address);
 void loadTR(WORD address);
 void loadIDTR(QWORD address);
+void enableInterrupt(void);
+void disableInterrupt(void);
 
 #endif

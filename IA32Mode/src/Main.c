@@ -3,13 +3,15 @@
 #include "Descriptor.h"
 #include "RegControl.h"
 #include "Handler.h"
+#include "Memory.h"
 
 const char * switchToIA32eMode = "Switch to IA-32e mode";
 const char * successBooting = "Success Booting";
 const char * initDiscriptor = "Initilize Discriptor";
 const char * discriptorLoadComplete = "Discriptor Load Complete";
 const char * picInitilize = "PIC initilize";
-const char * intInitilize = "Interrupt initilize";
+const char * intInitilize = "Interrupt Initilize";
+const char * memPoolInitlize = "Memory Pool Initilize";
 
 void Main(void) {
 	int a=1;
@@ -24,7 +26,11 @@ void Main(void) {
 	loadIDTR(IDTR_ADDRESS);
 	puts(discriptorLoadComplete);
 
+	initializePIC();
 	puts(picInitilize);
-	a/=0;
+	//a/=0;
+	initMemoryBitmap();
+	puts(memPoolInitlize);
+	printMemoryRate();
 	while(1);
 }
